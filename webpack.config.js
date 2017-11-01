@@ -25,6 +25,7 @@ module.exports = {
                 ]
             },
             {
+                // As we import our css file to our js file we need to use css-loader in case if JavaScript is turned off
                 test: /\.css$/,
                 use: [
                     'style-loader',
@@ -32,6 +33,7 @@ module.exports = {
                 ]
             },
             {
+                // To make a copy of our html file we need to use html-loader
                 test: /\.html./,
                 use: [
                     'html-loader'
@@ -40,12 +42,12 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin(),
-        new HtmlWebpackPlugin({
+        new webpack.optimize.UglifyJsPlugin(), // for minifying our dist/bundle.js file
+        new HtmlWebpackPlugin({ // for making a copy of our src/index.html file to dist/index.html
             filename: 'index.html',
             template: 'src/index.html'
-        }),
-        new CleanWebpackPlugin([
+        }), 
+        new CleanWebpackPlugin([ // whenever we run it will update the the whole dist file
             'dist'
         ])
     ]
