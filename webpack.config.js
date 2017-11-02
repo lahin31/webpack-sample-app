@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: './src/js/script.js',
@@ -25,17 +26,11 @@ module.exports = {
                 ]
             },
             {
-                // As we import our css file to our js file we need to use css-loader in case if JavaScript is turned off
                 test: /\.css$/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            minimize: true
-                        }
-                    }
-                ]
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: "css-loader"
+                })
             },
             {
                 // To make a copy of our html file we need to use html-loader
@@ -54,6 +49,7 @@ module.exports = {
         }), 
         new CleanWebpackPlugin([ // whenever we run it will update the the whole dist file
             'dist'
-        ])
+        ]),
+        new ExtractTextPlugin("style.css")
     ]
 }
