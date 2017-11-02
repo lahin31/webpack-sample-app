@@ -34,7 +34,7 @@ module.exports = {
             },
             {
                 // To make a copy of our html file we need to use html-loader
-                test: /\.html./,
+                test: /\.html$/,
                 use: [
                     'html-loader'
                 ]
